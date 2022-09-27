@@ -1,5 +1,4 @@
 import java.util.Optional;
-import java.util.OptionalDouble;
 
 public class Main {
     public static void main(String[] args) {

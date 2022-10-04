@@ -51,4 +51,35 @@ public class EjAleatorio {
             throw new RuntimeException(e);
         }
     }
+
+    public static void modificarEnteros() {
+        Scanner sc = new Scanner(System.in);
+        RandomAccessFile fichero = null;
+        int posicion, numero;
+        long size;
+        try {
+            fichero = new RandomAccessFile("enteros.dat", "r");
+            size = fichero.length();
+            size /= 4;
+            System.out.println("El fichero tiene " + size + " enteros");
+
+            // Modifica el entero que se encuentra en la posicion (>=1 y <=)
+            do {
+                System.out.println("Introduce la posición (>=1 y <= " + size + ")");
+                posicion = sc.nextInt();
+            } while (posicion < 1 || posicion > size);
+            posicion--;
+            // nos situamos en la posición
+            fichero.seek(posicion * 4);
+            System.out.println("El valor actual: " + fichero.readInt());
+            System.out.println("Introduce el nuevo valor: ");
+            numero = sc.nextInt();
+            fichero.seek(posicion * 4);
+            fichero.writeInt(numero);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

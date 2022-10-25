@@ -5,7 +5,7 @@ import java.sql.*;
 public class Info {
     static final String IP = "127.0.0.1";
     static final String PUERTO = "3306";
-    static final String BBDD = "personas";
+    static final String BBDD = "personas"; // en casa "persona"
     static final String USER = "root";
     static final String PASSWORD = "1234";
     static final String CADENA_CONEXION = "jdbc:mysql://" + IP + ":" + PUERTO + "/" + BBDD;

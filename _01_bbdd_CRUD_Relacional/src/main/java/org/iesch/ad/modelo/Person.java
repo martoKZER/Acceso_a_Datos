@@ -17,4 +17,5 @@ public class Person {
     String gender;
     String ip_address;
     Float money;
+    //
 }

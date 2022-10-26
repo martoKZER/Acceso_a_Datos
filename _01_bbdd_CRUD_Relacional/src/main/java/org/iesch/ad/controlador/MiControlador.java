@@ -9,15 +9,17 @@ import java.util.List;
 public class MiControlador {
     final String IP = "127.0.0.1";
     final String PUERTO = "3306";
-    final String BBDD = "personas";
+    final String BBDD = "persona";
     final String USER = "root";
     final String PASSWORD = "1234";
     final String CADENA_CONEXION = "jdbc:mysql://" + IP + ":" + PUERTO + "/" + BBDD;
-    Connection miConexion;
+    Connection conn;
+    PreparedStatement ps;
+    ResultSet rs;
 
     public MiControlador() {
         try {
-            miConexion = DriverManager.getConnection(CADENA_CONEXION, USER, PASSWORD);
+            conn = DriverManager.getConnection(CADENA_CONEXION, USER, PASSWORD);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -31,7 +33,7 @@ public class MiControlador {
         ArrayList<Person> miLista = new ArrayList<>();
         Statement miStatement;
         try {
-            miStatement = miConexion.createStatement();
+            miStatement = conn.createStatement();
             miResultSet = miStatement.executeQuery(sql);
             // recorrer el resultSet y crear el objeto lista a devolver
             while (miResultSet.next()) {
@@ -57,27 +59,27 @@ public class MiControlador {
 
     public void cierra() {
         try {
-            miConexion.close();
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     public boolean inserta(Person p) {
-        ResultSet miResultSet;
-        Statement miStatement;
-        String sql = "insert into person (id, name, last_name, email, gender, ip_address, money) values (?,?,?,?,?,?,?);";
+        String sql = "insert into person (id, first_name, last_name, email, gender, ip_address, money)\n" +
+                "values (?, ?, ?, ?, ?, ?, ?);";
         try {
-            PreparedStatement sentencia = miConexion.prepareStatement(sql);
-            p = new Person();
-                    sentencia.setInt(1, p.getId());
-            sentencia.setString(2, p.getFirst_name());
-            sentencia.setString(3, p.getLast_name());
-            sentencia.setString(4, p.getEmail());
-            sentencia.setString(5, p.getGender());
-            sentencia.setString(6, p.getIp_address());
-            sentencia.setFloat(7, p.getMoney());
-            sentencia.executeUpdate();
+            conn = DriverManager.getConnection(CADENA_CONEXION, USER, PASSWORD);
+            conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, p.getId());
+            ps.setString(2, p.getFirst_name());
+            ps.setString(3, p.getLast_name());
+            ps.setString(4, p.getEmail());
+            ps.setString(5, p.getGender());
+            ps.setString(6, p.getIp_address());
+            ps.setFloat(7, p.getMoney());
+            ps.executeUpdate();
 
             return true;
         } catch (SQLException e) {

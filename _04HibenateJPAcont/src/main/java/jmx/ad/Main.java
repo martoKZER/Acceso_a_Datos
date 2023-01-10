@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 
 public class Main {
@@ -99,7 +100,7 @@ public class Main {
 
         //Trabajando con DAO
 
-
+/*
         ContactDao contactDao = new ContactDao();
         URL url = null;
         try {
@@ -111,7 +112,7 @@ public class Main {
         contactDao.insert(Contact.builder().website(url).id(1).name(nombre).build());
 
 
-        contactDao.cierra();
+        contactDao.cierra();*/
 
 
         //Ejemplo OneToOne Persona trabajo con DAO
@@ -119,19 +120,19 @@ public class Main {
         PersonaDao personaDao = new PersonaDao();
         TrabajoDao trabajoDao = new TrabajoDao();
 
-        /*Persona p1 = Persona.builder().dni("18444555A").nombre("Pepito").apellido("Lopez").build();
-        Trabajo t1 = Trabajo.builder().nombre("Soldador").turno("Noches").fin(LocalTime.of(6,00)).inicio(LocalTime.of(22,0)).build();
+        Persona p1 = Persona.builder().dni("18444555A").nombre("Pepito").apellido("Lopez").build();
+        Trabajo t1 = Trabajo.builder().nombre("Soldador").turno("Noches").fin(LocalTime.of(6, 0)).inicio(LocalTime.of(22, 0)).build();
         personaDao.insert(p1);
         trabajoDao.insert(t1);
 
         p1.setTrabajo(t1);
         t1.setPersona(p1);
         personaDao.insert(p1);
-        trabajoDao.insert(t1);*/
+        trabajoDao.insert(t1);
 
-/*
+
         Persona persona = personaDao.busca("18444555A");
-        System.out.println(persona);*/
+        System.out.println(persona);
 
 
     }
